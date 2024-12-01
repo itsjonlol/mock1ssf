@@ -30,7 +30,7 @@ ENV SERVER_PORT=4000
 EXPOSE ${SERVER_PORT}
 
 # Run the application
-ENTRYPOINT SERVER_PORT=${SERVER_PORT} java -jar target/workshop6_pre-0.0.1-SNAPSHOT.jar
+ENTRYPOINT SERVER_PORT=${SERVER_PORT} java -jar target/mock1-0.0.1-SNAPSHOT.jar
 
 #docker build -t itsjonlol/mock1:0.0.1 . 
 #docker run -d -t -p 4000:4000 itsjonlol/mock1:0.0.1 
