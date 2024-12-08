@@ -30,7 +30,8 @@ public class NewsRestController {
             
         }
        
-        News news = newsService.getSavedNewsById(id);
+        // News news = newsService.getSavedNewsById(id);
+        News news = newsService.getSavedNewsById2(id);
         JsonObject responseJson = Json.createObjectBuilder()
                               .add("id",news.getId())
                               .add("title",news.getTitle())
@@ -44,6 +45,41 @@ public class NewsRestController {
         return ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(responseJson.toString());
         
     }
+    // if want to give news as response
+    @GetMapping("/news2/{id}")
+    public ResponseEntity<News> getNewsJsonString2(@PathVariable("id") String id) {
+        
+        // if (!newsService.checkIfNewsExist(id)){
+        //     JsonObject errorJson = Json.createObjectBuilder()
+        //                                .add("error","Cannot find news article " + id)
+        //                                .build();
+        //     return ResponseEntity.status(HttpStatus.NOT_FOUND).header("Content-Type", "application/json").body(errorJson.toString());
+            
+        // }
+        
+       
+        // News news = newsService.getSavedNewsById(id);
+        News news = newsService.getSavedNewsById2(id);
+        
+        return ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(news);
+        
+    }
+    //if giving object as response
+    // @GetMapping("/{id}")
+    // public ResponseEntity<Object> getNewsById(@PathVariable String id){
+        
+    //         News news = newsService.getsNewsById(id);
+    //         if (!news.getId().equals("not found")){
+    //             return ResponseEntity.ok().body(news);
+    //         }   
+
+    //         Map<String, String> error = new HashMap<>();
+    //         String errorMsg = "Cannot find news article "+id;
+    //         error.put("error", errorMsg);
+            
+    //         return ((BodyBuilder) ResponseEntity.notFound()).body(error);
+
+    // }
     
 
 }

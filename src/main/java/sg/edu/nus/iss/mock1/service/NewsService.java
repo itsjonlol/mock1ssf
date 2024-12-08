@@ -81,6 +81,27 @@ public class NewsService {
         
         
     }
+    
+    public void saveArticles2(List<News> savedArticles) {
+        
+        for (News news : savedArticles) {
+            JsonObject newsJsonObject = Json.createObjectBuilder()
+                                            .add("id",news.getId())
+                                            .add("published",news.getPublished())
+                                            .add("title",news.getTitle())
+                                            .add("url",news.getUrl())
+                                            .add("imageurl",news.getImageUrl())
+                                            .add("body",news.getBody())
+                                            .add("tags",news.getTags())
+                                            .add("categories",news.getCategories())
+                                            .build();
+            
+            newsRepo.setHash(ConstantVar.redisKey, news.getId(), newsJsonObject.toString());                                 
+
+        }
+        
+        
+    }
 
     public News getSavedNewsById(String id) {
         String rawData = newsRepo.getValueFromHash(ConstantVar.redisKey, id);
@@ -107,6 +128,44 @@ public class NewsService {
 
         return news;
     }
+    public News getSavedNewsById2(String id) {
+        String rawData = newsRepo.getValueFromHash(ConstantVar.redisKey, id);
+       
+        InputStream is = new ByteArrayInputStream(rawData.getBytes());
+        JsonReader reader = Json.createReader(is);
+        JsonObject jObject = reader.readObject();
+        // private String id;
+        // private Integer published;
+        // private String title;
+        // private String url;
+        // private String imageUrl;
+        // private String body;
+        // private String tags;
+        // private String categories;
+            
+        String idNews = jObject.getString("id");
+        Integer published = jObject.getInt("published");
+        String title = jObject.getString("title");
+        String url = jObject.getString("url");
+        String imageUrl = jObject.getString("imageurl");
+        String body = jObject.getString("body");
+        String tags = jObject.getString("tags");
+        String categories = jObject.getString("categories");
+        
+        News news = new News();
+        news.setId(idNews);
+        news.setPublished(published);
+        news.setTitle(title);
+        news.setUrl(url);
+        news.setImageUrl(imageUrl);
+        news.setBody(body);
+        news.setTags(tags);
+        news.setCategories(categories);
+
+        return news;
+    }
+
+
 
     public Boolean checkIfNewsExist(String id) {
         return newsRepo.hasKey(ConstantVar.redisKey, id);
