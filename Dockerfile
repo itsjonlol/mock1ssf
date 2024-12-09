@@ -1,10 +1,7 @@
 # Use the Maven image as the base
-FROM maven:3.9.9-eclipse-temurin-23
+# add compiler here
+FROM maven:3.9.9-eclipse-temurin-23 AS compiler
 
-# Set up labels for metadata
-LABEL MAINTAINER="jonathan"
-LABEL DESCRIPTION="Mock1"
-LABEL name="mock1"
 
 # Define application directory
 ARG APP_DIR=/app
@@ -21,7 +18,8 @@ COPY src src
 RUN chmod +x mvnw
 
 # Build the application
-RUN ./mvnw package -Dmaven.test.skip=true
+#./mvnw
+RUN mvn package -Dmaven.test.skip=true
 
 # Set the server port
 ENV SERVER_PORT=4000
@@ -34,3 +32,21 @@ ENTRYPOINT SERVER_PORT=${SERVER_PORT} java -jar target/mock1-0.0.1-SNAPSHOT.jar
 
 #docker build -t itsjonlol/mock1:0.0.1 . 
 #docker run -d -t -p 4000:4000 itsjonlol/mock1:0.0.1 
+
+#Stage 2
+FROM maven:3.9.9-eclipse-temurin-23
+
+ARG DEPLOY_DIR=/code_folder
+
+WORKDIR ${DEPLOY_DIR}
+#change the names here
+COPY --from=compiler /app/target/mock1-0.0.1-SNAPSHOT.jar mock1.jar
+
+# Set the server port
+ENV SERVER_PORT=4000
+
+# Expose the port
+EXPOSE ${SERVER_PORT}
+#change the name here
+# Run the application
+ENTRYPOINT SERVER_PORT=${SERVER_PORT} java -jar mock1.jar
