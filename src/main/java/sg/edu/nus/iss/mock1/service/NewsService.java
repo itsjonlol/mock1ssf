@@ -95,7 +95,7 @@ public class NewsService {
                                             .add("tags",news.getTags())
                                             .add("categories",news.getCategories())
                                             .build();
-            
+            //if update, it will just autoupdate
             newsRepo.setHash(ConstantVar.redisKey, news.getId(), newsJsonObject.toString());                                 
 
         }

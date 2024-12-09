@@ -40,8 +40,7 @@ public class NewsController {
         
         
 
-    //     return "redirect:/";
-    // }
+   
     @PostMapping("/articles")
     public String saveArticles(@RequestParam(required=false,name="selectedNewsIds") List<String> selectedNewsIds) {
         //if use String instead of List<String>, will be concantacenated for multiple ids
@@ -93,12 +92,14 @@ public class NewsController {
     //     return "redirect:/";
     // }
 
-    //if want to use multivaluemap
+    // if want to use multivaluemap
     // @PostMapping("/articles2")
     // public String saveArticles2(@RequestBody(required=false) MultiValueMap<String,String> form) {
         
     //     if (form!=null) {
     //         List<String> selectedNewsIds = form.get("selectedNewsIds");
+    //         String idd = form.getFirst("selectedNewsIds");
+    //         System.out.println("id is " + idd);
     //         List<News> savedArticles = new ArrayList();
         
     //         for (String id : selectedNewsIds) {
@@ -110,5 +111,7 @@ public class NewsController {
     //         newsService.saveArticles2(savedArticles);
 
     //     }
+    //          return "redirect:/";
+    // }
     
 }
