@@ -1,7 +1,11 @@
 package sg.edu.nus.iss.mock1.restcontroller;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,8 +46,12 @@ public class NewsRestController {
                               .add("tags",news.getTags())
                               .add("categories",news.getCategories())
                               .build();
-        return ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(responseJson.toString());
-        
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+                      
+        // return ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(responseJson.toString());
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(responseJson.toString());
     }
     // if want to give news as response
     @GetMapping("/news2/{id}")
