@@ -9,10 +9,27 @@ public class News {
     private String body;
     private String tags;
     private String categories;
+    private Boolean save;
 
     public News() {
 
     }
+    
+    
+    public News(String id, Integer published, String title, String url, String imageUrl, String body, String tags,
+            String categories, Boolean save) {
+        this.id = id;
+        this.published = published;
+        this.title = title;
+        this.url = url;
+        this.imageUrl = imageUrl;
+        this.body = body;
+        this.tags = tags;
+        this.categories = categories;
+        this.save = save;
+    }
+
+
 
     public News(String id, Integer published, String title, String url, String imageUrl, String body, String tags,
             String categories) {
@@ -94,6 +111,18 @@ public class News {
     public String toString() {
         return id + "~~~" + published + "~~~" + title + "~~~" + url + "~~~"
                 + imageUrl + "~~~" + body + "~~~" + tags + "~~~" + categories;
+    }
+
+
+
+    public Boolean getSave() {
+        return save;
+    }
+
+
+
+    public void setSave(Boolean save) {
+        this.save = save;
     }
 
     

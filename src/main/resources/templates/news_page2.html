@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+   
+    <div class="container">
+        <div class="row">
+            <h1>List of News</h1>
+        </div>
+    
+        <form method="post" th:action="@{/articles2}" th:object="${savednewsList}">
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        
+            <!-- Iterate over the newsList -->
+            <div th:each="eachnews, iterStat : *{newsList}" class="news-item">
+                <img th:src="${eachnews.imageUrl}" class="img-thumbnail" alt="News Image">
+        
+                <div>
+                    <strong>Id:</strong>
+                    <span th:text="${eachnews.id}"></span>
+                    <input type="hidden" th:field="${eachnews.id}">
+                </div>
+        
+                <div>
+                    <strong>Title:</strong>
+                    <span th:text="${eachnews.title}"></span>
+                    <input type="hidden" th:field="${eachnews.title}">
+                </div>
+        
+                <p>
+                    <span th:text="${eachnews.body}"></span>
+                    <input type="hidden" th:field="${eachnews.body}">
+                </p>
+        
+                <div>
+                    <strong>Categories:</strong>
+                    <span th:text="${eachnews.categories}"></span>
+                    <input type="hidden" th:field="${eachnews.categories}">
+                </div>
+        
+                <div>
+                    <strong>Tags:</strong>
+                    <span th:text="${eachnews.tags}"></span>
+                    <input type="hidden" th:field="${eachnews.tags}">
+                </div>
+        
+                <div>
+                    <strong>Published:</strong>
+                    <span th:text="${eachnews.published}"></span>
+                    <input type="hidden" th:field="${eachnews.published}">
+                </div>
+        
+                <div>
+                    <strong>URL:</strong>
+                    <a th:href="${eachnews.url}" th:text="${eachnews.url}">Link</a>
+                    <input type="hidden" th:field="${eachnews.url}">
+                </div>
+        
+                <!-- Checkbox for save -->
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" th:field="${eachnews.save}">
+                    <label class="form-check-label">Save</label>
+                </div>
+        
+                <hr>
+            </div>
+        </form>
+        
+    
+    
+    
+</body>
+</html>
